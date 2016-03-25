@@ -1,0 +1,45 @@
+body {
+	margin: 50px 100px;
+	padding: 0;
+	font-family: "Microsoft YaHei";
+	font-size: 16px;
+}
+#err_info {
+	color: red;
+}
+.addDiv label {
+	display: block;
+	width: 200px;
+	height: 32px;
+}
+
+.addDiv input {
+	height: 26px;
+	padding: 2px;
+	font-family: "Microsoft YaHei";
+}
+
+.addDiv button {
+	height: 24px;
+	margin: 10px 0;
+	font-family: "Microsoft YaHei";
+}
+
+table{
+	margin-top: 20px; 
+	border-collapse: collapse;
+}
+table td {
+	width: 100px;
+	border: 1px solid #cecece;
+	padding: 4px;
+	text-align: center;
+}
+table td button {
+	width: 70px;
+	font-family: "Microsoft YaHei";
+}
+table thead {
+	background: #333333;
+	color: #fff;
+}
