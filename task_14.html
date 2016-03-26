@@ -2,8 +2,10 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+	    <title>IFE JavaScript Task 01</title>
 	</head>
 <body>
+
 	<h3>污染城市列表</h3>
 	<ul id="aqi-list">
 	</ul>
@@ -21,7 +23,12 @@ var aqiData = [
 		li_item = null,
 		li,
 		rank = 0;
-	console.log(aqiData,length);
+	// console.log(aqiData,length);
+	// 二维数组sort函数进行排序
+	aqiData.sort(function(x, y){
+		return y[1] - x[1];
+	});
+	// console.log(aqiData);
 	for(var i =0; i < aqiData.length; i++){
 		if(aqiData[i][1] > 60){
 			rank++;
@@ -42,13 +49,10 @@ var aqiData = [
 					 rank_cn = '第五名';
 					 break;
 			}
-		//create node:li
+		//create node
 		li = document.createElement('li');
-		//create textnode
 		var li_item = document.createTextNode(rank_cn + ':' + aqiData[i][0] + ',' + aqiData[i][1]);
-		//append textnode to node
 		li.appendChild(li_item);
-		//append li to ul
 		aqi_list.appendChild(li);
 		}
 	}  
