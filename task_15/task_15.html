@@ -1,0 +1,157 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>IFE JavaScript Task 01</title>
+</head>
+<body>
+
+	<ul id="source">
+		<li>
+			北京空气质量： <b>90</b>
+		</li>
+		<li>
+			上海空气质量： <b>70</b>
+		</li>
+		<li>
+			天津空气质量：
+			<b>80</b>
+		</li>
+		<li>
+			广州空气质量：
+			<b>50</b>
+		</li>
+		<li>
+			深圳空气质量：
+			<b>40</b>
+		</li>
+		<li>
+			福州空气质量：
+			<b>32</b>
+		</li>
+		<li>
+			成都空气质量：
+			<b>90</b>
+		</li>
+	</ul>
+
+	<ul id="resort"></ul>
+
+	<button id="sort-btn">排序</button>
+
+	<script type="text/javascript">
+
+/**
+ * getData方法
+ * 读取id为source的列表，获取其中城市名字及城市对应的空气质量
+ * 返回一个数组，格式见函数中示例
+ */
+
+function getData() {
+	var source_array = [],
+		data = [],
+		source = document.getElementById('source'),
+		source_li = source.children,
+		source_data = source.getElementsByTagName('b');
+	for(var i =0; i<source_li.length; i++) {
+		// console.log(source_li[i].innerHTML);
+		var arr = [,];
+		//获取城市和天气，分别存入临时数组，然后赋给data，二维存储
+		//slice（0，2）获取从0位开始，获取城市
+		arr[0] = source_li[i].innerHTML.slice(0,2);
+		// 获取b内的内容
+		arr[1] = source_data[i].innerHTML;
+		data[i] = arr;
+		// console.log(data[i]);
+		// console.log(source_data[]);
+	}
+  return data;
+}
+/**
+ * sortAqiData
+ * 按空气质量对data进行从小到大的排序
+ * 返回一个排序后的数组
+ */
+
+function sortAqiData(data) {
+	// console.log(data.length);
+	var t =[,],
+		i = 0,
+		j = 0;
+	//对二维数组的第二维进行排序，冒泡排
+	for(i =0; i< data.length; i++){
+		for(j =0 ; j < data.length-1-i; j++){
+			if(data[j][1]>data[j+1][1]){
+				t = data[j];
+				data[j] = data[j+1];
+				data[j+1] = t;
+				// console.log(t);
+			}
+		}		
+	}
+	return data;
+}
+
+/**
+ * render
+ * 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
+ * 格式见ul中的注释的部分
+ */
+function render(data) {
+	var li,
+		li_item = [],
+		rank_cn,
+		b,
+		resort = document.getElementById('resort');
+	// console.log('99' + data.length);
+	for (var i = 0; i < data.length; i++) {
+		switch(i) {
+			case 0:
+				 rank_cn = '第一名';
+				 break;
+			case 1:
+				 rank_cn = '第二名';
+				 break;
+			case 2:
+				 rank_cn = '第三名';
+				 break;
+			case 3:
+				 rank_cn = '第四名';
+				 break;
+			case 4:
+				rank_cn = '第五名';
+				break;
+			case 5:
+				rank_cn = '第六名';
+				break;
+			case 6:
+				rank_cn = '第七名';
+				break;
+			default:
+				break;
+		}
+		li = document.createElement('li');
+		b = document.createElement('b');
+		li_item[i] = document.createTextNode(rank_cn + ':' + data[i][0] +'空气质量:' );
+		b.innerHTML = data[i][1];
+		li.appendChild(li_item[i]);
+		li.appendChild(b);
+		resort.appendChild(li);
+	}
+}	
+
+function btnHandle() {
+  	var aqiData = getData();
+  	aqiData = sortAqiData(aqiData);
+  	render(aqiData);
+}
+
+
+function init() {
+	// 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
+	var btn = document.getElementById('sort-btn');
+	btn.onclick = btnHandle;
+}
+init();
+</script></body>
+</html>
