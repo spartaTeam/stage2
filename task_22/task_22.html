@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>任务二十二：JavaScript和树（一）</title>
+    <script src="task_22.js"></script>
+</head>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    div{
+        background-color: #fff;
+        border: 2px solid #000;
+    }
+    #tree-root{
+        margin: 0 auto;
+        width: 1250px;
+        height: 350px;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-around;
+    }
+    #tree-root *{
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        margin:20px 25px;
+    }
+    .tree-leaf{
+        width: 60px;
+        height: 150px;
+    }
+    .traverse{
+        margin-top: 50px;
+        text-align: center;
+        width: 100%;
+        border: 0;
+    }
+</style>
+<body>
+<div id='tree-root'>
+    <div >
+        <div>
+            <div class="tree-leaf"></div>
+            <div class="tree-leaf"></div>
+        </div>
+        <div>
+            <div class="tree-leaf"></div>
+            <div class="tree-leaf"></div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <div class="tree-leaf"></div>
+            <div class="tree-leaf"></div>
+        </div>
+        <div>
+            <div class="tree-leaf"></div>
+            <div class="tree-leaf"></div>
+        </div>
+    </div>
+</div>
+<div class="traverse">
+    <button id="preOrder">先序遍历</button>
+    <button id="inOrder">中序遍历</button>
+    <button id="postOrder">后序遍历</button>
+</div>
+</body>
+</html>
