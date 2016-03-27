@@ -1,88 +1,108 @@
 /*desc by ygf
- *ÓÃif elseÌ«Ë³ÊÖÁË£¬µ«¿É¶ÁĞÔÃ²ËÆ²»ÊÇºÜºÃ£¬ÓĞ¿Õ¸Ä³Éswitch case°É
+ *ï¿½ï¿½if elseÌ«Ë³ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½Ã²ï¿½Æ²ï¿½ï¿½ÇºÜºÃ£ï¿½ï¿½Ğ¿Õ¸Ä³ï¿½switch caseï¿½ï¿½
  * */
-var walker = document.getElementById("walker");//»ñÈ¡·½¿é
-var header=document.getElementById("header");//»ñÈ¡Í·
-var space = document.getElementsByTagName("td");//»ñÈ¡ÆåÅÌ
-var pos=[4,5];//ÓÃÊı×é´æ´¢Ğ¡·½¿éµ±Ç°µÄÎ»ÖÃ,45¾ÍÊÇ4*10+5£¬³õÊ¼Öµ
+var walker = document.getElementById("walker");//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+var header=document.getElementById("header");//ï¿½ï¿½È¡Í·
+var space = document.getElementsByTagName("td");//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
+var pos=[4,5];//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ´¢Ğ¡ï¿½ï¿½ï¿½éµ±Ç°ï¿½ï¿½Î»ï¿½ï¿½,45ï¿½ï¿½ï¿½ï¿½4*10+5ï¿½ï¿½ï¿½ï¿½Ê¼Öµ
 var index=pos[0]*10+pos[1];
-var director=document.getElementById("director");//»ñÈ¡ÊäÈëµÄÖ¸Áî
-var doer=document.getElementById("doer");//»ñÈ¡°´Å¥µã»÷ÊÂ¼ş
-var headTo=1;//Í·²¿³õÊ¼ÖµÎª1£¬ÏòÉÏ£¬Ë³Ê±Õë¡ª¡ª2ÏòÓÒ£¬3ÏòÏÂ£¬4Ïò×ó
-/*³õÊ¼»¯Î»ÖÃ*/
+var director=document.getElementById("director");//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+var doer=document.getElementById("doer");//ï¿½ï¿½È¡ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
+var headTo=1;//Í·ï¿½ï¿½ï¿½ï¿½Ê¼ÖµÎª1ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½Ë³Ê±ï¿½ë¡ªï¿½ï¿½2ï¿½ï¿½ï¿½Ò£ï¿½3ï¿½ï¿½ï¿½Â£ï¿½4ï¿½ï¿½ï¿½ï¿½
+/*ï¿½ï¿½Ê¼ï¿½ï¿½Î»ï¿½ï¿½*/
 space[0].innerHTML="";
 space[index].appendChild(walker);
 /**/
 doer.onclick=function(){
     var txt=director.value;
-    /*Ç°½ø*/
+    /*Ç°ï¿½ï¿½*/
     if(txt==="GO"){
-        if(pos[0]<9 && pos[1]<9 && pos[0]>0 && pos[1]>0){//ÔÚÆåÅÌÄÚ
+        if(pos[0]<9 && pos[1]<9 && pos[0]>0 && pos[1]>0){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         space[index].innerHTML="";
-        /*ÅĞ¶ÏÍ·µÄ·½Ïò*/
-        if(headTo===1){//Èç¹ûÏòÉÏ
-            pos[0]=pos[0]-1;
-        }else if(headTo===2){//Èç¹ûÏòÓÒ
-            pos[1]=pos[1]+1;
-        }else if(headTo===3){//Èç¹ûÏòÏÂ
-            pos[0]=pos[0]+1;
-        }else if(headTo===4){//Èç¹ûÏò×ó
-            pos[1]=pos[1]-1;
-        }
+        /*ï¿½Ğ¶ï¿½Í·ï¿½Ä·ï¿½ï¿½ï¿½*/
+            if (headTo === 1) {//å¦‚æœå‘ä¸Š
+                if (pos[0] > 0) {
+                    pos[0]--;
+                } else {
+                    alert('OUT!');
+                    location.reload();
+                }
+            } else if (headTo === 2) {//å¦‚æœå‘å³
+                if (pos[1] < 9) {
+                    pos[1]++;
+                } else {
+                    alert('OUT!');
+                    location.reload();
+                }
+            } else if (headTo === 3) {//å¦‚æœå‘ä¸‹
+                if (pos[0] < 9) {
+                    pos[0]++;
+                } else {
+                    alert('OUT!');
+                    location.reload();
+                }
+            } else if (headTo === 4) {//å¦‚æœå‘å·¦
+                if (pos[1] > 0) {
+                    pos[1]--;
+                } else {
+                    alert('OUT!');
+                    location.reload();
+                }
+            }
             pos[0]=turnNum(pos[0]);
             pos[1]=turnNum(pos[1]);
         index=pos[0]*10+pos[1];
         space[index].appendChild(walker);
-        }else{//³¬³öÆåÅÌ
-            alert('³¬³öÆåÅÌÁË£¬ÖØĞÂ¿ªÊ¼°É...');
+        }else{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½Â¿ï¿½Ê¼ï¿½ï¿½...');
             location.reload();
         }
     }else if(txt==="TUN LEF"){
-        if(headTo===1){//Èç¹ûÏòÉÏ
+        if(headTo===1){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
            headTo=4;
             header.className='head-left';
-        }else if(headTo===2){//Èç¹ûÏòÓÒ
+        }else if(headTo===2){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=1;
             header.className='head-up';
-        }else if(headTo===3){//Èç¹ûÏòÏÂ
+        }else if(headTo===3){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=2;
             header.className='head-right';
-        }else if(headTo===4){//Èç¹ûÏò×ó
+        }else if(headTo===4){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=3;
             header.className='head-down';
         }
     }else if(txt==="TUN RIG"){
-        if(headTo===1){//Èç¹ûÏòÉÏ
+        if(headTo===1){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=2;
             header.className='head-right';
-        }else if(headTo===2){//Èç¹ûÏòÓÒ
+        }else if(headTo===2){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=3;
             header.className='head-down';
-        }else if(headTo===3){//Èç¹ûÏòÏÂ
+        }else if(headTo===3){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=4;
             header.className='head-left';
-        }else if(headTo===4){//Èç¹ûÏò×ó
+        }else if(headTo===4){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=1;
             header.className='head-up';
         }
     } else if(txt==="TUN BAC"){
-        if(headTo===1){//Èç¹ûÏòÉÏ
+        if(headTo===1){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=3;
             header.className='head-down';
-        }else if(headTo===2){//Èç¹ûÏòÓÒ
+        }else if(headTo===2){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=4;
             header.className='head-left';
-        }else if(headTo===3){//Èç¹ûÏòÏÂ
+        }else if(headTo===3){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=1;
             header.className='head-up';
-        }else if(headTo===4){//Èç¹ûÏò×ó
+        }else if(headTo===4){//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             headTo=2;
             header.className='head-right';
         }
     }
 }
 
-function turnNum(val){//µ±posÖµÎª9+1»ò0-1£¬½øĞĞ´¦Àí
+function turnNum(val){//ï¿½ï¿½posÖµÎª9+1ï¿½ï¿½0-1ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½
     if(val===10){
         return 0;
     }else if(val===-1){
