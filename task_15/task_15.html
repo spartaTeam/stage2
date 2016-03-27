@@ -1,27 +1,45 @@
 <!DOCTYPE>
 <html>
-  <head>
+<head>
 	<meta charset="utf-8">
 	<title>IFE JavaScript Task 01</title>
-  </head>
+</head>
 <body>
 
 	<ul id="source">
-		<li>北京空气质量：<b>90</b></li>
-		<li>上海空气质量：<b>70</b></li>
-		<li>天津空气质量：<b>80</b></li>
-		<li>广州空气质量：<b>50</b></li>
-		<li>深圳空气质量：<b>40</b></li>
-		<li>福州空气质量：<b>32</b></li>
-		<li>成都空气质量：<b>90</b></li>
+		<li>
+			北京空气质量： <b>90</b>
+		</li>
+		<li>
+			上海空气质量： <b>70</b>
+		</li>
+		<li>
+			天津空气质量：
+			<b>80</b>
+		</li>
+		<li>
+			广州空气质量：
+			<b>50</b>
+		</li>
+		<li>
+			深圳空气质量：
+			<b>40</b>
+		</li>
+		<li>
+			福州空气质量：
+			<b>32</b>
+		</li>
+		<li>
+			成都空气质量：
+			<b>90</b>
+		</li>
 	</ul>
 
-	<ul id="resort">
-	</ul>
+	<ul id="resort"></ul>
 
 	<button id="sort-btn">排序</button>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 /**
  * getData方法
@@ -39,7 +57,7 @@ function getData() {
 		// console.log(source_li[i].innerHTML);
 		var arr = [,];
 		//获取城市和天气，分别存入临时数组，然后赋给data，二维存储
-		//slice（0，2）获取从0位开始，前两个字符
+		//slice（0，2）获取从0位开始，获取城市
 		arr[0] = source_li[i].innerHTML.slice(0,2);
 		// 获取b内的内容
 		arr[1] = source_data[i].innerHTML;
@@ -135,6 +153,5 @@ function init() {
 	btn.onclick = btnHandle;
 }
 init();
-</script>
-</body>
+</script></body>
 </html>
