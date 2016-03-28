@@ -121,7 +121,7 @@ doer.onclick = function () {
     else if (txt === "TRA TOP") {
         if (pos[0] > 0) {//在棋盘内
             space[index].innerHTML = "";
-            pos[1]--;
+            pos[0]--;
             index = pos[0] * 10 + pos[1];
             space[index].appendChild(walker);
         } else {
@@ -145,7 +145,7 @@ doer.onclick = function () {
             index = pos[0] * 10 + pos[1];
             space[index].appendChild(walker);
         } else {
-            alert('NOT RIGHT');
+            alert('NOT DOWN');
         }
     }
     else if (txt === "MOV LEF") {
