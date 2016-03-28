@@ -136,10 +136,11 @@ function citySelectChange() {
     var selectedCityIndex = document.getElementById('city-select').selectedIndex;
     if (selectedCityIndex !== pageState.nowSelectCity) {
         pageState.nowSelectCity = selectedCityIndex;
+        renderChart();
         // console.log(pageState.nowSelectCity);
     }
     // 调用图表渲染函数
-    renderChart();
+    // renderChart();
 }
 
 /**
