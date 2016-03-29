@@ -3,7 +3,27 @@
 <head>
 	<meta charset="utf-8">
 	<title>IFE JavaScript Task 01</title>
-	<script src="task.js"></script>
+	<style type="text/css">
+		ul{
+			/*border: 1px solid black;*/
+			width:1000px;
+			height: 600px;	
+			padding-left: 0px;		
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			vertical-align: bottom;
+			align-items:flex-end;
+			margin: 0 auto;
+		}
+		ul li{
+			border: 1px solid white;
+			width: 50px;
+			/* height需要分别设置 */
+			/*height: 150px;*/
+			list-style: none;
+		}	
+	</style>
 </head>
 <body>
 	<fieldset id="form-gra-time">
@@ -23,9 +43,19 @@
 		<legend>请选择查看的城市：</legend>
 		<select id="city-select">
 			<option>北京</option>
+			<option>上海</option>
+			<option>广州</option>
+			<option>深圳</option>
+			<option>成都</option>
+			<option>西安</option>
+			<option>福州</option>
+			<option>厦门</option>
+			<option>沈阳</option>
 		</select>
 	</fieldset>
 
-	<div class="aqi-chart-wrap"></div>
+	<div class="aqi-chart-wrap">
+	</div>
+	<script src="js/task_17.js"></script>
 </body>
 </html>
