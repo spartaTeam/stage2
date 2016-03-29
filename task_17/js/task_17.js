@@ -64,26 +64,13 @@ var aqiSourceData = {
 		if(chart_wrap.getElementsByTagName('ul').length != 0){
 			chart_wrap.innerHTML = '';
 		}
-		var ul = document.createElement('ul'),
-			max = Math.max.apply(null, chartData[1]);
-		// console.log(max);
+		var ul = document.createElement('ul');
 		for(var i =0; i < chartData[1].length; i++){	
 			var standard_value =0;
 			li = document.createElement('li');
-			switch(pageState.nowGraTime){
-				case 'day':
-					standard_value = chartData[1][i]*(500/max);
-					break;
-				case 'week':
-					standard_value = chartData[1][i]*(500/max);
-					break;
-				case 'month':
-					standard_value = chartData[1][i]*(500/max);
-					break;
-				default:
-					break;
-			}
-			li.title = chartData[0][i] + ',' + chartData[1][i];
+			//如果需要数据标准化...
+			standard_value = chartData[1][i];
+			li.title = chartData[0][i] + ',' + Math.round(chartData[1][i]);
 			li.style.height = standard_value+ 'px';
 			li.style.backgroundColor = setColor(standard_value);
 			ul.appendChild(li);
@@ -183,7 +170,7 @@ var aqiSourceData = {
 			allData = [];
 		allData[0] = [];
 		allData[1] = [];
-		//读取城市对应的数据
+		//读取城市
 		for(var each in aqiSourceData[city_val]){		
 			allData[0].push(each);		//存日期
 			allData[1].push(aqiSourceData[city_val][each]);		//存数据
@@ -201,11 +188,11 @@ var aqiSourceData = {
 				week_arr[1] = [];	//记录每周数据
 				while(allData[1].length > 7){
 					//splice第二个参数设置不要超过最大索引值
-					week_arr[1].push(eval(allData[1].splice(0,7).join('+')));
+					week_arr[1].push(eval(allData[1].splice(0,7).join('+'))/7);
 					week_arr[0].push('第' + week + '周');
 					week++;
 				}
-				week_arr[1].push(eval(allData[1].join('+')));
+				week_arr[1].push(eval(allData[1].join('+'))/allData[1].length);
 				week_arr[0].push('第' + week + '周');
 				chartData = week_arr;
 				break;
@@ -221,11 +208,11 @@ var aqiSourceData = {
 					switch(month_date.slice(5,7)){
 						case '01':
 						case '03':
-							month_arr[1].push(eval(allData[1].splice(0,31).join('+')));
+							month_arr[1].push(eval(allData[1].splice(0,31).join('+'))/31);
 							allData[0].splice(0,31);
 							break;
 						case '02':
-							month_arr[1].push(eval(allData[1].splice(0,29).join('+')));
+							month_arr[1].push(eval(allData[1].splice(0,29).join('+'))/29);
 							allData[0].splice(0,29);
 							break;
 						default:
@@ -239,7 +226,6 @@ var aqiSourceData = {
 				break;
 		}
 	}
-
 	/**
 	 * 初始化函数
 	 */
