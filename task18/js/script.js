@@ -15,14 +15,11 @@ window.onload = function(){
 		errorMsg = document.getElementById('error_msg'),
 		queueWrap = document.getElementById('queue_wrap'),
 		queueLi = queueWrap.getElementsByTagName('li');
-	// ----类名元素获取兼容
+	
 	checkOut();
 
 	domUtil.addEvent(btnWrap, 'click', function(e){
-		// ----貌似不需要这句？？
-		// var e = e || window.event;
-		// console.log(e);
-
+		
 		var target = e.target || e.srcElement,
 			queueFirst = queueWrap.firstChild,
 			queueLast = queueWrap.lastChild,
