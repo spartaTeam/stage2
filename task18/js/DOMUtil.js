@@ -12,8 +12,6 @@ DOMUtil.prototype.addEvent = function(el, type, fn, bubble){
 		el.attachEvent(onType, fn);
 	}
 	else{
-		// ----onType is ok?
-		// ----貌似也不需要这句
 		// el.onType(fn);
 	}
 	
