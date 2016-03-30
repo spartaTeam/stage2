@@ -66,10 +66,7 @@ var aqiSourceData = {
 		}
 		var ul = document.createElement('ul');
 		for(var i =0; i < chartData[1].length; i++){	
-			// var standard_value =0;
 			var li = document.createElement('li');
-			//如果需要数据标准化...
-			// standard_value = chartData[1][i];
 			li.title = chartData[0][i] + ',' + Math.round(chartData[1][i]);
 			li.style.height = chartData[1][i]+ 'px';
 			li.style.backgroundColor = setColor(chartData[1][i]);
@@ -77,7 +74,6 @@ var aqiSourceData = {
 			if (pageState.nowGraTime == 'month') {
 				li.style.width = '80px';
 			}
-			// ul.appendChild(li);
 			chart_wrap.appendChild(ul).appendChild(li);
 		}
 	}
@@ -188,16 +184,21 @@ var aqiSourceData = {
 			case 'week':
 				var week_arr = [],
 					week = 1;
+				// console.log(allData[0]);
 				week_arr[0] = [];	//记录周数
 				week_arr[1] = [];	//记录每周数据
-				while(allData[1].length > 7){
-					//splice第二个参数设置不要超过最大索引值
-					week_arr[1].push(eval(allData[1].splice(0,7).join('+'))/7);
+				while(allData[0].length > 0){
+					var week_day = new Date(allData[0][0]).getDay(),
+						len;
+					//len记录距离这周实际应该计算的天数
+					len = allData[0].length >= 7 ? (8-week_day) : allData[0].length;
+					// console.log(len);
+					// 周日为界，截取对应天数
+					allData[0].splice(0,len);
+					week_arr[1].push(eval(allData[1].splice(0,len).join('+'))/len);
 					week_arr[0].push('第' + week + '周');
 					week++;
 				}
-				week_arr[1].push(eval(allData[1].join('+'))/allData[1].length);
-				week_arr[0].push('第' + week + '周');
 				chartData = week_arr;
 				break;
 			case 'month':
