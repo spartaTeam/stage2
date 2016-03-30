@@ -11,10 +11,6 @@ DOMUtil.prototype.addEvent = function(el, type, fn, bubble){
 		// 兼容IE8-
 		el.attachEvent(onType, fn);
 	}
-	else{
-		// el.onType(fn);
-	}
-	
 };
 DOMUtil.prototype.hasClass = function(el, className){
 	if(el){
