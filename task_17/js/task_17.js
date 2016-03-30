@@ -66,15 +66,19 @@ var aqiSourceData = {
 		}
 		var ul = document.createElement('ul');
 		for(var i =0; i < chartData[1].length; i++){	
-			var standard_value =0;
-			li = document.createElement('li');
+			// var standard_value =0;
+			var li = document.createElement('li');
 			//如果需要数据标准化...
-			standard_value = chartData[1][i];
+			// standard_value = chartData[1][i];
 			li.title = chartData[0][i] + ',' + Math.round(chartData[1][i]);
-			li.style.height = standard_value+ 'px';
-			li.style.backgroundColor = setColor(standard_value);
-			ul.appendChild(li);
-			chart_wrap.appendChild(ul);
+			li.style.height = chartData[1][i]+ 'px';
+			li.style.backgroundColor = setColor(chartData[1][i]);
+			//选择月份宽度最粗
+			if (pageState.nowGraTime == 'month') {
+				li.style.width = '80px';
+			}
+			// ul.appendChild(li);
+			chart_wrap.appendChild(ul).appendChild(li);
 		}
 	}
 

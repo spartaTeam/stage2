@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IFE JavaScript Task 01</title>
+	<style type="text/css">
+		body{
+			font-family: '微软雅黑';
+		}
+		ul{
+			border: 1px solid black;
+			/*font-size: 16px;*/
+			/*color: white;*/
+			width:1000px;
+			height: 550px;	
+			padding-left: 0px;		
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items:flex-end;
+			margin: 30px auto;
+		}
+		ul li{
+			border: 1px solid blue;
+			background-color: red;
+			list-style: none;
+			float: left;
+			display: block;
+			margin-right: 10px;
+			width:35px;
+		}
+
+		input[type = 'button']{
+			border: 1px solid grey;
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			background-color: white;
+		}
+		input:nth-child(3){
+			margin-right: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<input type="text" id="txt"></input>
+		<input type="button" value="左侧入" id="btnLeftIn"></input>
+		<input type="button" value="右侧入" id="btnRightIn"></input>
+		<input type="button" value="左侧出" id="btnLeftOut"></input>
+		<input type="button" value="右侧出" id="btnRightOut"></input>
+	</div>	
+	<input type="button" value = "快速输入" id="instant_input"></input>
+	<input type="button" value="排序"  id="sort"></input>
+	<ul id="ul-list">
+	</ul>
+	<script type="text/javascript" src="js/task_19.js"></script>
+</body>
+</html>

@@ -16,7 +16,7 @@ window.onload = function(){
 				}else{
 					alert('请输入数据！');
 				}
-				console.log(ul.innerHTML);
+				// console.log(ul.innerHTML);
 				break;
 			case 'btnRightIn':
 				if (text.value != '') {
@@ -26,8 +26,7 @@ window.onload = function(){
 				}
 				break;
 			case 'btnLeftOut':
-				//删除第一个节点
-				//兼容的写法
+				//删除第一个节点，根据节点类型判断
 				/*if (ul.childNodes.length != 1) {
 					while(ul.childNodes[0].nodeType != 1){
 						ul.childNodes[0].remove();
@@ -37,7 +36,7 @@ window.onload = function(){
 				}else{
 					alert('队列中元素为空！');
 				}*/
-				// 不兼容ie
+				//不兼容ie8以下
 				if(ul.querySelector("li:first-child")){
 					ul.querySelector("li:first-child").remove();
 				}else{
@@ -45,7 +44,6 @@ window.onload = function(){
 				}	
 				break;
 			case 'btnRightOut':
-
 				if(ul.querySelector("li:last-child")){
 					ul.querySelector("li:last-child").remove();
 				}else{
@@ -59,6 +57,8 @@ window.onload = function(){
 	ul_list.onclick = function(){
 		var ev = ev || window.event,
 			target = ev.target || ev.srcElement;
-		target.remove();
+		if (target.nodeType == 1 && target.id != 'ul-list') {
+			target.remove();
+		}	
 	};
 };
