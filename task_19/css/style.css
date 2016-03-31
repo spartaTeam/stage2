@@ -1,0 +1,38 @@
+.input_wrap, #queue_wrap{
+	overflow: hidden;
+}
+#queue_input{
+	float: left;
+}
+.error_msg{
+	display: none;
+	float: left;
+	margin: 0 10px;
+}
+#btn_wrap{
+	float: left;
+	margin: 10px 0;
+}
+#queue_wrap{
+	clear: both;
+	height: 200px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+.queue_member{
+	float: left;
+	width: 15px;
+	margin-right: 1px;
+	list-style: none;
+	text-align: center;
+	color: #fff;
+	background-color: #FF6666;
+}
+.show{
+	display: block;
+	color: #FF0033;
+}
+.highlight{
+	background-color: #FFFF99;
+}
