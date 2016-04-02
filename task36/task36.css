@@ -1,0 +1,72 @@
+.box{
+    width:600px;
+    height:600px;
+    margin:100px auto;
+}
+td{
+    width:50px;
+    height:50px;
+    border:1px solid #ccc;
+    padding: 0;
+}
+.walker{
+    width:100%;
+    height:100%;
+    background-color: #ff0000;
+    -webkit-animation: rotateWalker .5s;
+    -moz-animation: rotateWalker .5s;
+    -o-animation: rotateWalker .5s;
+    animation: rotateWalker .5s;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+    position: relative;
+}
+@keyframes rotateWalker {
+    0%{
+        opacity: 0;
+        -webkit-transform:rotate(0deg) ;
+        -moz-transform:rotate(0deg) ;
+        -ms-transform:rotate(0deg) ;
+        -o-transform:rotate(0deg) ;
+        transform:rotate(0deg) ;
+    }
+    100%{
+        opacity: 1;
+        -webkit-transform:rotate(360deg) ;
+        -moz-transform:rotate(360deg) ;
+        -ms-transform:rotate(360deg) ;
+        -o-transform:rotate(360deg) ;
+        transform:rotate(360deg) ;
+    }
+}
+.head-up{
+    width:100%;
+    height:20%;
+    top:0;
+    position: absolute;
+    background-color: #0000ff;
+}
+.head-down{
+    width:100%;
+    height:20%;
+    bottom:0;
+    position: absolute;
+    background-color: #0000ff;
+}
+.head-left{
+    width:20%;
+    height:100%;
+    left:0;
+    position: absolute;
+    background-color: #0000ff;
+}
+.head-right{
+    width:20%;
+    height:100%;
+    right:0;
+    position: absolute;
+    background-color: #0000ff;
+}
