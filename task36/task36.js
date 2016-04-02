@@ -1,81 +1,93 @@
 /*desc by ygf
- æ–°å¢žå…ƒç´ â€œå¢™â€ï¼Œå¢™æ˜¯æ­£æ–¹å½¢ä¸å¯è¿›å…¥ã€è¶Šè¿‡çš„åŒºåŸŸ
- æ–°å¢žä¿®å¢™çš„æŒ‡ä»¤ï¼ŒBUILDï¼Œæ‰§è¡ŒæŒ‡ä»¤æ—¶ï¼Œä¼šåœ¨å½“å‰æ–¹å—é¢å¯¹çš„æ–¹å‘å‰ä¿®å»ºä¸€æ ¼å¢™å£ï¼Œå¦‚æžœè¢«æŒ‡å®šä¿®å¢™çš„åœ°æ–¹è¶…è¿‡è¾¹ç•Œå¢™æˆ–è€…å·²ç»æœ‰å¢™äº†ï¼Œåˆ™å–æ¶ˆä¿®å¢™æ“ä½œï¼Œå¹¶è°ƒç”¨æµè§ˆå™¨çš„console.logæ–¹æ³•æ‰“å°ä¸€ä¸ªé”™è¯¯æ—¥å¿—
- æ–°å¢žç²‰åˆ·çš„æŒ‡ä»¤ï¼ŒBRU colorï¼Œcoloræ˜¯ä¸€ä¸ªå­—ç¬¦ä¸²ï¼Œä¿æŒå’Œcssä¸­é¢œè‰²ç¼–ç ä¸€è‡´ã€‚æ‰§è¡ŒæŒ‡ä»¤æ—¶ï¼Œå¦‚æžœå½“å‰æ–¹å—è“è‰²è¾¹é¢å¯¹æ–¹å‘æœ‰ç´§ç›¸é‚»çš„å¢™ï¼Œåˆ™å°†è¿™ä¸ªå¢™é¢œè‰²æ”¹ä¸ºå‚æ•°é¢œè‰²ï¼Œå¦‚æžœæ²¡æœ‰ï¼Œåˆ™é€šè¿‡è°ƒç”¨æµè§ˆå™¨çš„console.logæ–¹æ³•ï¼Œæ‰“å°ä¸€ä¸ªé”™è¯¯æ—¥å¿—
- å°è¯•å†™ä¸€æ®µä»£ç ï¼Œå®žçŽ°åœ¨ç©ºé—´å†…ä¿®å»ºä¸€ä¸ªé•¿é•¿çš„äº”é¢œå…­è‰²çš„å¢™æˆ–è€…æœ‰è¶£çš„å›¾å½¢
- æ–°å¢žä¸€ä¸ªæŒ‰é’®ï¼Œå¯ä»¥åœ¨ç©ºé—´å†…éšæœºç”Ÿæˆä¸€äº›å¢™
- å¢žåŠ ä¸€ä¸ªæŒ‡ä»¤ï¼šMOV TO x, yï¼Œä¼šä½¿å¾—æ–¹å—ä»Žå½“å‰ä½ç½®ç§»åŠ¨åˆ°åæ ‡ä¸ºxï¼Œyçš„åœ°æ–¹ï¼Œç§»åŠ¨è¿‡ç¨‹ä¸­ä¸èƒ½è¿›å…¥å¢™æ‰€åœ¨çš„åœ°æ–¹ï¼Œå¯»è·¯ç®—æ³•è¯·è‡ªè¡Œé€‰æ‹©å¹¶å®žçŽ°ï¼Œä¸åšå…·ä½“è¦æ±‚ * */
+ ÐÂÔöÔªËØ¡°Ç½¡±£¬Ç½ÊÇÕý·½ÐÎ²»¿É½øÈë¡¢Ô½¹ýµÄÇøÓò
+ ÐÂÔöÐÞÇ½µÄÖ¸Áî£¬BUILD£¬Ö´ÐÐÖ¸ÁîÊ±£¬»áÔÚµ±Ç°·½¿éÃæ¶ÔµÄ·½ÏòÇ°ÐÞ½¨Ò»¸ñÇ½±Ú£¬Èç¹û±»Ö¸¶¨ÐÞÇ½µÄµØ·½³¬¹ý±ß½çÇ½»òÕßÒÑ¾­ÓÐÇ½ÁË£¬ÔòÈ¡ÏûÐÞÇ½²Ù×÷£¬²¢µ÷ÓÃä¯ÀÀÆ÷µÄconsole.log·½·¨´òÓ¡Ò»¸ö´íÎóÈÕÖ¾
+ ÐÂÔö·ÛË¢µÄÖ¸Áî£¬BRU color£¬colorÊÇÒ»¸ö×Ö·û´®£¬±£³ÖºÍcssÖÐÑÕÉ«±àÂëÒ»ÖÂ¡£Ö´ÐÐÖ¸ÁîÊ±£¬Èç¹ûµ±Ç°·½¿éÀ¶É«±ßÃæ¶Ô·½ÏòÓÐ½ôÏàÁÚµÄÇ½£¬Ôò½«Õâ¸öÇ½ÑÕÉ«¸ÄÎª²ÎÊýÑÕÉ«£¬Èç¹ûÃ»ÓÐ£¬ÔòÍ¨¹ýµ÷ÓÃä¯ÀÀÆ÷µÄconsole.log·½·¨£¬´òÓ¡Ò»¸ö´íÎóÈÕÖ¾
+ ³¢ÊÔÐ´Ò»¶Î´úÂë£¬ÊµÏÖÔÚ¿Õ¼äÄÚÐÞ½¨Ò»¸ö³¤³¤µÄÎåÑÕÁùÉ«µÄÇ½»òÕßÓÐÈ¤µÄÍ¼ÐÎ
+ ÐÂÔöÒ»¸ö°´Å¥£¬¿ÉÒÔÔÚ¿Õ¼äÄÚËæ»úÉú³ÉÒ»Ð©Ç½
+ Ôö¼ÓÒ»¸öÖ¸Áî£ºMOV TO x, y£¬»áÊ¹µÃ·½¿é´Óµ±Ç°Î»ÖÃÒÆ¶¯µ½×ø±êÎªx£¬yµÄµØ·½£¬ÒÆ¶¯¹ý³ÌÖÐ²»ÄÜ½øÈëÇ½ËùÔÚµÄµØ·½£¬Ñ°Â·Ëã·¨Çë×ÔÐÐÑ¡Ôñ²¢ÊµÏÖ£¬²»×ö¾ßÌåÒªÇó * */
 
-var walker = document.getElementById("walker");//èŽ·å–æ–¹å—
-var header = document.getElementById("header");//èŽ·å–å¤´
-var space = document.getElementsByTagName("td");//èŽ·å–æ£‹ç›˜
-var pos = [5, 5];//ç”¨æ•°ç»„å­˜å‚¨å°æ–¹å—å½“å‰çš„ä½ç½®,45å°±æ˜¯4*10+5ï¼Œåˆå§‹å€¼
+var walker = document.getElementById("walker");//»ñÈ¡·½¿é
+var header = document.getElementById("header");//»ñÈ¡Í·
+var space = document.getElementsByTagName("td");//»ñÈ¡ÆåÅÌ
+var pos = [4, 5];//ÓÃÊý×é´æ´¢Ð¡·½¿éµ±Ç°µÄÎ»ÖÃ,45¾ÍÊÇ4*10+5£¬³õÊ¼Öµ
 var index = pos[0] * 10 + pos[1];
-var director = document.getElementById("director");//èŽ·å–è¾“å…¥çš„æŒ‡ä»¤
-var doer = document.getElementById("doer");//èŽ·å–æŒ‰é’®ç‚¹å‡»äº‹ä»¶
-var headTo = 1;//å¤´éƒ¨åˆå§‹å€¼ä¸º1ï¼Œå‘ä¸Šï¼Œé¡ºæ—¶é’ˆâ€”â€”2å‘å³ï¼Œ3å‘ä¸‹ï¼Œ4å‘å·¦
-/*åˆå§‹åŒ–ä½ç½®*/
+var director = document.getElementById("director");//»ñÈ¡ÊäÈëµÄÖ¸Áî
+var doer = document.getElementById("doer");//»ñÈ¡°´Å¥µã»÷ÊÂ¼þ
+var headTo = 1;//Í·²¿³õÊ¼ÖµÎª1£¬ÏòÉÏ£¬Ë³Ê±Õë¡ª¡ª2ÏòÓÒ£¬3ÏòÏÂ£¬4Ïò×ó
+var wall = [];//Ç½
+/*³õÊ¼»¯Î»ÖÃ*/
 space[0].innerHTML = "";
 space[index].appendChild(walker);
 /**/
 doer.onclick = function () {
+    getWall()
     var lineArr = director.value.split(/\n/);
     for (var i = 0; i < lineArr.length; i++) {
-        /*æ­£åˆ™å¤„ç†å‚æ•°*/
+        /*ÕýÔò´¦Àí²ÎÊý*/
         if (lineArr[i].length < 10) {
-            var dir,//å­˜å‚¨å­—æ¯æŒ‡ä»¤
-                num = 1;//å­˜å‚¨æ•°å­—
-            if (lineArr[i].match(/\D{2,7}/)) {
-                dir = lineArr[i].match(/\D{2,7}/)[0];
+            var dir,//´æ´¢×ÖÄ¸Ö¸Áî
+                num = 1;//´æ´¢Êý×Ö
+            if (lineArr[i].match(/\D{2,}/)) {
+                dir = lineArr[i].match(/\D{2,}/)[0];
             }
-            if (lineArr[i].match(/\d/)){
+            if (lineArr[i].match(/\d/)) {
                 num = lineArr[i].match(/\d/)[0];//parseInt(lineArr[i])/*?parseInt(lineArr[i]):0*/;
             }
-            console.log(dir,num);
+            console.log(dir, num);
+
             switch (dir) {
-                /*å‰è¿›*/
+                /*Ç°½ø*/
                 case "GO":
-                case "GO ":/*GOåŽé¢å¦‚æžœåŠ ç©ºæ ¼ï¼Œå‘½ä»¤'GO'æ‰§è¡Œä¸äº†ï¼Œä¸åŠ ç©ºæ ¼ï¼Œå‘½ä»¤'GO 2'æ‰§è¡Œä¸äº†T T*/
+                case "GO ":/*GOºóÃæÈç¹û¼Ó¿Õ¸ñ£¬ÃüÁî'GO'Ö´ÐÐ²»ÁË£¬²»¼Ó¿Õ¸ñ£¬ÃüÁî'GO 2'Ö´ÐÐ²»ÁËT T*/
                     space[index].innerHTML = "";
                     switch (headTo) {
-                        case 1:
-                            if (pos[0] > num-1) {
-                                for (var j = 0; j < num; j++) {
-                                    pos[0]--;
+                        case 1://Í·²¿ÏòÉÏ£¬ÏòÉÏ×ß£¬x--
+                            if (!isWall(pos[0] - num, pos[1],1)) {
+                                if (pos[0] > num - 1) {
+                                    pos[0] -= num;
+                                } else {
+                                    alert('OUT!');
+                                    location.reload();
                                 }
                             } else {
-                                alert('OUT!');
-                                location.reload();
+                                console.log('Äã±»Ç½ÁË');
                             }
                             break;
-                        case 2:
-                            if (pos[1] < 10-num) {
-                                for (var j = 0; j < num; j++) {
-                                    pos[1]++;
+                        case 2://Í·²¿ÏòÓÒ
+                            if (!isWall(pos[0], pos[1] + num, 2)) {
+                                if (pos[1] < 10 - num) {
+                                        pos[1]+=num;
+                                } else {
+                                    alert('OUT!');
+                                    location.reload();
                                 }
                             } else {
-                                alert('OUT!');
-                                location.reload();
+                                console.log('Äã±»Ç½ÁË');
                             }
                             break;
                         case 3:
-                            if (pos[0] < 10-num) {
-                                for (var j = 0; j < num; j++) {
-                                    pos[0]++;
+                            if (!isWall(pos[0] + num, pos[1], 3)) {
+                                if (pos[0] < 10 - num) {
+                                        pos[0]+=num;
+                                } else {
+                                    alert('OUT!');
+                                    location.reload();
                                 }
                             } else {
-                                alert('OUT!');
-                                location.reload();
+                                console.log('Äã±»Ç½ÁË');
                             }
                             break;
                         case 4:
-                            if (pos[1] > num-1) {
-                                for (var j = 0; j < num; j++) {
-                                    pos[1]--;
+
+                            if (!isWall(pos[0], pos[1] - num, 4)) {
+                                if (pos[1] > num - 1) {
+                                        pos[1]-=num;
+                                } else {
+                                    alert('OUT!');
+                                    location.reload();
                                 }
                             } else {
-                                alert('OUT!');
-                                location.reload();
+                                console.log('Äã±»Ç½ÁË');
                             }
                             break;
                     }
@@ -84,7 +96,7 @@ doer.onclick = function () {
                     index = pos[0] * 10 + pos[1];
                     space[index].appendChild(walker);
                     break;
-                /*æ”¹å˜è„‘æ´žæ–¹å‘*/
+                /*¸Ä±äÄÔ¶´·½Ïò*/
                 case "TUN LEF":
                     switch (headTo) {
                         case 1:
@@ -145,11 +157,11 @@ doer.onclick = function () {
                             break;
                     }
                     break;
-                /*åƒæŸä¸ªæ–¹å‘å‰è¿›ä¸€æ­¥ï¼Œä¸æ”¹å˜è„‘æ´žæ–¹å‘*/
+                /*ÏñÄ³¸ö·½ÏòÇ°½øÒ»²½£¬²»¸Ä±äÄÔ¶´·½Ïò*/
                 case "TRA LEF":
-                    if (pos[1] > num) {//åœ¨æ£‹ç›˜å†…
+                    if (pos[1] > num) {//ÔÚÆåÅÌÄÚ
                         space[index].innerHTML = "";
-                        for (var i = 0; i <num; i++) {
+                        for (var i = 0; i < num; i++) {
                             pos[1]--;
                         }
                         index = pos[0] * 10 + pos[1];
@@ -159,7 +171,7 @@ doer.onclick = function () {
                     }
                     break;
                 case "TRA TOP":
-                    if (pos[0] > num) {//åœ¨æ£‹ç›˜å†…
+                    if (pos[0] > num) {//ÔÚÆåÅÌÄÚ
                         space[index].innerHTML = "";
                         for (var j = 0; j < num; j++) {
                             pos[0]--;
@@ -171,7 +183,7 @@ doer.onclick = function () {
                     }
                     break;
                 case "TRA RIG":
-                    if (pos[1] < 10-num) {//åœ¨æ£‹ç›˜å†…
+                    if (pos[1] < 10 - num) {//ÔÚÆåÅÌÄÚ
                         space[index].innerHTML = "";
                         for (var j = 0; j < num; j++) {
                             pos[1]++;
@@ -183,7 +195,7 @@ doer.onclick = function () {
                     }
                     break;
                 case "TRA BOT":
-                    if (pos[0] < 10-num) {//åœ¨æ£‹ç›˜å†…
+                    if (pos[0] < 10 - num) {//ÔÚÆåÅÌÄÚ
                         space[index].innerHTML = "";
                         for (var j = 0; j < num; j++) {
                             pos[0]++;
@@ -194,7 +206,7 @@ doer.onclick = function () {
                         alert('NOT DOWN');
                     }
                     break;
-                /*æ”¹å˜è„‘æ´žæ–¹å‘åŒæ—¶å‰è¿›ä¸€æ­¥*/
+                /*¸Ä±äÄÔ¶´·½ÏòÍ¬Ê±Ç°½øÒ»²½*/
                 case "MOV LEF":
                     header.className = 'head-left';
                     if (pos[1] > num) {
@@ -229,7 +241,7 @@ doer.onclick = function () {
                     break;
                 case "MOV RIG":
                     header.className = 'head-right';
-                    if (pos[1] < 10-num) {
+                    if (pos[1] < 10 - num) {
                         header = 2;
                         for (var j = 0; j < num; j++) {
                             pos[1]++;
@@ -245,7 +257,7 @@ doer.onclick = function () {
                     break;
                 case "MOV BOT":
                     header.className = 'head-down';
-                    if (pos[0] < 10-num) {
+                    if (pos[0] < 10 - num) {
                         header = 4;
                         for (var j = 0; j < num; j++) {
                             pos[0]++;
@@ -260,15 +272,15 @@ doer.onclick = function () {
                     }
                     break;
                 default :
-                    console.log('ä¸åˆæ³•æŒ‡ä»¤ï¼š',lineArr[i]);
+                    console.log('²»ºÏ·¨Ö¸Áî£º', lineArr[i]);
             }
         } else {
-            console.log('è¶…å‡ºäº†æŒ‡ä»¤é•¿åº¦');
+            console.log('³¬³öÁËÖ¸Áî³¤¶È');
         }
     }
 }
 
-function turnNum(val) {//å½“poså€¼ä¸º9+1æˆ–0-1ï¼Œè¿›è¡Œå¤„ç†
+function turnNum(val) {//µ±posÖµÎª9+1»ò0-1£¬½øÐÐ´¦Àí
     if (val === 10) {
         return 0;
     } else if (val === -1) {
@@ -276,4 +288,46 @@ function turnNum(val) {//å½“poså€¼ä¸º9+1æˆ–0-1ï¼Œè¿›è¡Œå¤„ç†
     } else {
         return val;
     }
+}
+
+/*²âÊÔ·ÛË¢Ç½*/
+space[3 * 10 + 5].className = "wall";
+space[5 * 10 + 5].className = "wall";
+space[4 * 10 + 6].className = "wall";
+space[4 * 10 + 4].className = "wall";
+
+/*·µ»ØËùÓÐÇ½µÄÎ»ÖÃ*/
+function getWall() {
+    var wallArr = [];
+    for (var i = 0; i < space.length; i++) {
+        if (space[i].className === 'wall')
+            wallArr.push([parseInt(i / 10), i % 10]);
+    }
+    return wallArr;
+}
+/*Èç¹ûÐ¡·½¿éÏÂÒ»²½µÄÎ»ÖÃÊÇÇ½»òÕßÔ½Ç½TRUE£¬Ôò²»ÄÜÇ°½ø*/
+function isWall(x, y, headTo) {//x,yÊÇÐ¡·½¿é¼´½«µ½´ïµÄÎ»ÖÃ
+    var wallArr = getWall();
+    var flag=false;;
+    for (var i = 0; i < wallArr.length; i++) {
+        if (headTo === 1) {//Í·ÏòÉÏ
+            if (x <= wallArr[i][0]) {
+                flag=true;
+            }
+        } else if (headTo === 2) {//Í·ÏòÓÒ
+            if (y >= wallArr[i][1]) {
+                flag=true;
+            }
+        } else if (headTo === 3) {//Í·ÏòÏÂ
+            if (x >= wallArr[i][0]) {
+                flag=true;
+            }
+        } else if (headTo === 4) {//Í·Ïò×ó
+            if (y <= wallArr[i][1]) {
+                flag=true;
+            }
+        }
+    }
+    console.log('head',headTo);
+    return flag;
 }

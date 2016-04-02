@@ -70,3 +70,6 @@ td{
     position: absolute;
     background-color: #0000ff;
 }
+.wall{
+    background-color: #ccc;
+}
