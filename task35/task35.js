@@ -39,7 +39,8 @@ doer.onclick = function () {
             console.log(dir,num);
             switch (dir) {
                 /*前进*/
-                case "GO ":
+                case "GO":
+                case "GO ":/*GO后面如果加空格，命令'GO'执行不了，不加空格，命令'GO 2'执行不了T T*/
                     space[index].innerHTML = "";
                     switch (headTo) {
                         case 1:
