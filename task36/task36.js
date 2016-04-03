@@ -221,67 +221,56 @@ doer.onclick = function () {
                     break;
                 /*改变脑洞方向同时前进一步*/
                 case "MOV LEF":
-                    header.className = 'head-left';
-                    if (pos[1] > num) {
-                        header = 4;
-                        for (var j = 0; j < num; j++) {
-                            pos[1]--;
+                    if (!isWall(pos[0], pos[1] - num, 4, num)) {
+                        header.className = 'head-left';
+                        if (pos[1] > num - 1) {
+                            pos[1] -= num;
+                        } else {
+                            alert('OUT!');
+                            location.reload();
                         }
-                        pos[0] = turnNum(pos[0]);
-                        pos[1] = turnNum(pos[1]);
-                        index = pos[0] * 10 + pos[1];
-                        space[index].appendChild(walker);
                     } else {
-                        alert('OUT!');
-                        location.reload();
+                        console.log('你被墙了');
                     }
                     break;
                 case "MOV TOP":
-                    header.className = 'head-up';
-                    if (pos[0] > num) {
-                        header = 1;
-                        for (var j = 0; j < num; j++) {
-                            pos[0]--;
+                    if (!isWall(pos[0] - num, pos[1], 1, num)) {
+                        header.className = 'head-up';
+                        if (pos[0] > num - 1) {
+                            pos[0] -= num;
+                        } else {
+                            alert('OUT!');
+                            location.reload();
                         }
-                        pos[0] = turnNum(pos[0]);
-                        pos[1] = turnNum(pos[1]);
-                        index = pos[0] * 10 + pos[1];
-                        space[index].appendChild(walker);
                     } else {
-                        alert('OUT!');
-                        location.reload();
+                        console.log('你被墙了');
                     }
                     break;
                 case "MOV RIG":
-                    header.className = 'head-right';
-                    if (pos[1] < 10 - num) {
-                        header = 2;
-                        for (var j = 0; j < num; j++) {
-                            pos[1]++;
+                    if (!isWall(pos[0], pos[1] + num, 2, num)) {
+                        header.className = 'head-right';
+                        if (pos[1] < 10 - num) {
+                            pos[1] += num;
+                        } else {
+                            alert('OUT!');
+                            location.reload();
                         }
-                        pos[0] = turnNum(pos[0]);
-                        pos[1] = turnNum(pos[1]);
-                        index = pos[0] * 10 + pos[1];
-                        space[index].appendChild(walker);
                     } else {
-                        alert('OUT!');
-                        location.reload();
+                        console.log('你被墙了');
                     }
+
                     break;
                 case "MOV BOT":
-                    header.className = 'head-down';
-                    if (pos[0] < 10 - num) {
-                        header = 4;
-                        for (var j = 0; j < num; j++) {
-                            pos[0]++;
+                    if (!isWall(pos[0] + num, pos[1], 3, num)) {
+                        header.className = 'head-down';
+                        if (pos[0] < 10 - num) {
+                            pos[0] += num;
+                        } else {
+                            alert('OUT!');
+                            location.reload();
                         }
-                        pos[0] = turnNum(pos[0]);
-                        pos[1] = turnNum(pos[1]);
-                        index = pos[0] * 10 + pos[1];
-                        space[index].appendChild(walker);
                     } else {
-                        alert('OUT!');
-                        location.reload();
+                        console.log('你被墙了');
                     }
                     break;
                 default :
