@@ -2,7 +2,7 @@ window.onload = function(){
 	var wrap = document.getElementById('wrap'),
 		ul = document.getElementById('ul-list'),
 		text = document.getElementById('txt'),
-		ul_list = document.getElementById('ul-list'),
+		// ul_list = document.getElementById('ul-list'),
 		sort = document.getElementById('sort'),
 		instant = document.getElementById('instant_input'),
 		arr = [];
@@ -11,9 +11,7 @@ window.onload = function(){
 			target = ev.target || ev.srcElement,
 			target_id = target.id || target.value;
 		//arr记录输入的数
-		// GetRandomNum(10,100);
-		
-		if(arr.length <= 60){
+		if(arr.length < 60){
 			switch(target_id){
 				case 'btnLeftIn':
 					if (text.value != '') {
@@ -52,18 +50,18 @@ window.onload = function(){
 					break;
 			}
 		}else{
+			// 判断按钮才进行提醒
 			alert("数量超过60个");
 		}	
 	};
-
 	//委托处理每个li点击消失事件
-	ul_list.onclick = function(){
+	ul.onclick = function(){
 		var ev = ev || window.event,
 			target = ev.target || ev.srcElement;
-		// console.log(target.innerHTML);
 		// console.log(target.id);
 		if (target.nodeType == 1 && target.id != 'ul-list') {
 			target.remove();
+			arr.length --;
 		}	
 	};
 
@@ -71,50 +69,59 @@ window.onload = function(){
 	function setRandomNum(Min,Max){   
 		var Range = Max - Min;   
 		var Rand = Math.random();   
-		return(Min + Math.round(Rand * Range));   
+		arr.push((Min + Math.round(Rand * Range))*5);   
 	}   
 	
+	//渲染表格
 	function renderChart(num){
-	
+		console.log(arr.length);
+		for(i =0; i<arr.length; i++){
+			var li = document.createElement('li');
+			li.style.height = arr[i] + 'px';
+			ul.appendChild(li);
+		}
 	}
-	/*instant_input.onclick = function(){
-		var num = GetRandomNum(10,100);   
-		alert(num); 
-	};*/
+	//快速生成数组
+	instant_input.onclick = function(){				   
+		ul.innerHTML="";
+		arr = [];
+		for(var i =0; i < 60; i++){
+			setRandomNum(10,100);
+		}
+		renderChart();
+	};
 
 	sort.onclick = function(){
-		//li的高度存在了arr中
+		//li的高度存于arr_li中
 		var li_list = ul.querySelectorAll('li'),
-			arr_li = [];
+			data = [];
 		for(var i =0; i< li_list.length; i++){
 			var height = li_list[i].style.height;
 			height = height.slice(0, height.length-2);
-			arr_li.push(height);	
+			data.push(parseInt(height));	
 		}
-		for (var i = 0; i < arr_li.length; i++) {
-			for (var j = 0; j < arr_li.length - 1 - i; j++) {
-				if (arr_li[j]> arr_li[j + 1]) {
-					var t = arr_li[j];
-					arr_li[j] = arr_li[j + 1];
-					arr_li[j + 1] = t;
-					li_list[j].style.height = arr_li[j] + 'px';
-					li_list[j+1].style.height = arr_li[j+1] + 'px';
-					
-					/*setTimeout(function(){
-						li_list[j].style.height = arr_li[j] + 'px';
-						li_list[j+1].style.height = arr_li[j+1] + 'px';
-					},50);*/
-					
+		var i =0, j =0, t;
+		timer  = setInterval(run,25);
+		function run(){
+			if(i < data.length){
+				if(j < data.length -i -1){
+					if(data[j] > data[j+1]){
+						t = data[j];
+						data[j] = data[j+1];
+						data[j+1] = t;
+						li_list[j].style.height = data[j] + 'px';
+						li_list[j+1].style.height = data[j+1] + 'px';
+						// console.log(i + ',' + j);
+					}
+					j = j+1;
+				}else{
+					i++;
+					j = 0;
 				}
-			}
-			// setInterval("sortAqiData.moveOne()",50);
-		}
-
-		/*function sort_arr(){
-			
-		}*/
-		
-
-		
+			}else{
+				clearInterval(timer);
+				return;
+			}	
+		};	
 	}
 };
