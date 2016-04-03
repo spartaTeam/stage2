@@ -307,12 +307,9 @@ function turnNum(val) {//当pos值为9+1或0-1，进行处理
 var myWall = [
     5,	6,	7,	8,	9,	15,	19,	25,	29,	35,	55,	65,	70,	75,	80,	85,	90,	91,	92,	93,	94,	95
 ];
-for (var i = 0; i < space.length; i++) {
-    for (var j = 0; j < myWall.length; j++)
-        if (i === myWall[j]) {
-            space[i].className="wall";
+    for (var i= 0; i < myWall.length; i++){
+            space[myWall[i]].className="wall";
         }
-}
 /*返回所有墙的位置*/
 function getWall() {
     var wallArr = [];
