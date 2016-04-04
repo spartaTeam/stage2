@@ -6,17 +6,27 @@
  新增一个按钮，可以在空间内随机生成一些墙
  增加一个指令：MOV TO x, y，会使得方块从当前位置移动到坐标为x，y的地方，移动过程中不能进入墙所在的地方，寻路算法请自行选择并实现，不做具体要求 * */
 /*
- * bug:
+ * bug1:
  *TUN RIG/BAC+GO多步的时候会报错：task36.js:96 Uncaught TypeError: Cannot read property 'appendChild' of undefined
- * 原因，参数num的格式是字符串，要转换成数值
- * BUG:
- * TRA指令有没有对墙进行判断，未解决
+ * 原因，参数num的格式是字符串，要转换成数值，已解决
+ * bug2:
+ * TRA指令有没有对墙进行判断，已解决
+ * bug3:
+ * 小方块的寻路算法还没实现，现在会穿墙
+ * 
+ *
+ 寻路算法思路：
+ 1 棋盘中点到点间的最短路径范围，是个矩形
+ 2 先判断矩形内的墙，是否有断点
+ 3 如果有断点，就走到断点的地方，重新寻路
+ 4 如果没有断点，那就说明，最短路径范围已经不可行了
+ 5 从外围开始寻路？
  * */
 
 var walker = document.getElementById("walker");//获取方块
 var header = document.getElementById("header");//获取头
 var space = document.getElementsByTagName("td");//获取棋盘
-var pos = [4, 5];//用数组存储小方块当前的位置,45就是4*10+5，初始值
+var pos = [2, 3];//用数组存储小方块当前的位置,45就是4*10+5，初始值
 var index = pos[0] * 10 + pos[1];
 var director = document.getElementById("director");//获取输入指令的元素
 var doer = document.getElementById("doer");//获取按钮点击事件
@@ -24,6 +34,7 @@ var refresh = document.getElementById("refresh");//获取刷新点击
 var randomWall = document.getElementById("randomWall");//获取生成随机墙按钮
 var headTo = 1;//头部初始值为1，向上，顺时针——2向右，3向下，4向左
 var wall = [];//墙
+var roadArr = [];
 /*初始化位置*/
 space[0].innerHTML = "";
 space[index].appendChild(walker);
@@ -33,15 +44,21 @@ doer.onclick = function () {
     var lineArr = director.value.split(/\n/);
     for (var i = 0; i < lineArr.length; i++) {
         /*正则处理参数*/
-        if (lineArr[i].length < 10) {
+        if (lineArr[i].length < 20) {
             var dir,//存储字母指令
-                num = 1;//存储数字
+                num = 1,//存储数字
+                num2 = 0;
             if (lineArr[i].match(/\D{2,}/)) {
                 dir = lineArr[i].match(/\D{2,}/)[0];
             }
             if (lineArr[i].match(/\d/)) {
                 num = lineArr[i].match(/\d/)[0];//parseInt(lineArr[i])/*?parseInt(lineArr[i]):0*/;
                 num = parseInt(num);
+            }
+            if (lineArr[i].match(/,\d/)) {
+                num2 = lineArr[i].match(/,\d/)[0];
+                num2 = num2.split(',')[1];
+                num2 = parseInt(num2);
             }
             console.log('输入的指令是：', dir, num);
             switch (dir) {
@@ -167,7 +184,7 @@ doer.onclick = function () {
                     break;
                 /*像某个方向前进一步，不改变脑洞方向*/
                 case "TRA LEF":
-                    if (!isWall(pos[0] , pos[1]- num, 4, num)) {
+                    if (!isWall(pos[0], pos[1] - num, 4, num)) {
                         if (pos[1] > num) {//在棋盘内
                             space[index].innerHTML = "";
                             for (var i = 0; i < num; i++) {
@@ -180,7 +197,7 @@ doer.onclick = function () {
                         } else {
                             alert('NO LEFT!');
                         }
-                    }else{
+                    } else {
                         console.log('你被墙了');
                     }
                     break;
@@ -198,7 +215,7 @@ doer.onclick = function () {
                         } else {
                             alert('NOT UP');
                         }
-                    }else{
+                    } else {
                         console.log('你被墙了');
                     }
                     break;
@@ -216,7 +233,7 @@ doer.onclick = function () {
                         } else {
                             alert('NOT RIGHT');
                         }
-                    }else{
+                    } else {
                         console.log('你被墙了');
                     }
                     break;
@@ -234,7 +251,7 @@ doer.onclick = function () {
                         } else {
                             alert('NOT DOWN');
                         }
-                    }else{
+                    } else {
                         console.log('你被墙了');
                     }
                     break;
@@ -392,6 +409,10 @@ doer.onclick = function () {
                             break;
                     }
                     break;
+                case "MOV TO ":
+                    console.log(parseInt(num), parseInt(num2));
+                    path([num, num2]);
+                    break;
                 default :
                     console.log('不合法指令：', lineArr[i]);
             }
@@ -414,17 +435,17 @@ function hasWall() {
     /*随机生成墙*/
     var wallNo = Math.floor(Math.random() * 100);
     console.log(wallNo);//看生成的随机数是什么
-    console.log(myWall.length,myWall);//数组
-   // if (myWall.length < 100) {
-        for (var i = 0; i < myWall.length; i++) {
-            if (wallNo == myWall[i] || wallNo==(pos[0]*10+pos[1])) {
-                console.log('flag',wallNo,myWall[i]);
-                //hasWall();
-            }
+    console.log(myWall.length, myWall);//数组
+    // if (myWall.length < 100) {
+    for (var i = 0; i < myWall.length; i++) {
+        if (wallNo == myWall[i] || wallNo == (pos[0] * 10 + pos[1])) {
+            console.log('flag', wallNo, myWall[i]);
+            //hasWall();
         }
-        myWall.push(wallNo);
-        space[wallNo].style.backgroundColor="#ccc";
-   // }else{
+    }
+    myWall.push(wallNo);
+    space[wallNo].style.backgroundColor = "#ccc";
+    // }else{
     //    console.log('→_→都这样了你还想刷哪。。。');
     //}
 }
@@ -441,7 +462,18 @@ function turnNum(val) {//当pos值为9+1或0-1，进行处理
 
 /*设定的墙*/
 var myWall = [
-    5, 6, 7, 8, 9, 15, 19, 25, 29, 35, 55, 65, 70, 75, 80, 85, 90, 91, 92, 93, 94, 95
+
+
+    /*  00,02,04,06,08,
+     11,13,15,17,19,//+9
+     20,22,24,26,28,//+9
+     31,33,35,37,39,//+11
+     40,42,44,46,48,//+9
+     51,53,55,57,59,//+11
+     60,62,64,66,68,//+9
+     71,73,75,77,79,//+11
+     80,82,84,86,88,//+9
+     91,93,95,97,99,//+11*/
 ];
 
 function printWall() {
@@ -500,4 +532,59 @@ function isWall(x, y, headTo, num) {//x,y是小方块即将到达的位置
 function randomColor() {
     var rgb = Math.floor(Math.random() * 1000) % 256;
     return rgb;
+}
+
+/*起点，[x1,y1]终点，[x2,y2]，
+ */
+function path(dest) {
+    space[index].innerHTML = "";
+    console.log('起点：', pos, '终点：', dest);
+    /*先考虑终点在起点的右下方，即x2>x1,y2>y1*/
+    if (dest[0] >= pos[0] && dest[1] >= pos[1]) {
+        for (var i = pos[0]; i < dest[0]; i++) {//上下方向
+            pos[0]++;
+            roadArr.push(pos[0]*10+pos[1]);
+        }
+        for (var j = pos[1]; j < dest[1]; j++) {
+            pos[1]++;
+            roadArr.push(pos[0]*10+pos[1]);
+        }
+    } else if (dest[0] <= pos[0] && dest[1] >= pos[1]) {//终点在起点的右上
+        for (var i = pos[0]; i > dest[0]; i--) {//上下方向
+            pos[0]--;
+            roadArr.push(pos[0]*10+pos[1]);
+        }
+        for (var j = pos[1]; j < dest[1]; j++) {
+            pos[1]++;
+            roadArr.push(pos[0]*10+pos[1]);
+        }
+    } else if (dest[0] >= pos[0] && dest[1] <= pos[1]) {//终点在起点的左下方
+        for (var i = pos[0]; i < dest[0]; i++) {//上下方向
+            pos[0]++;
+            roadArr.push(pos[0]*10+pos[1]);
+        }
+        for (var j = pos[1]; j > dest[1]; j--) {
+            pos[1]--;
+            roadArr.push(pos[0]*10+pos[1]);
+        }
+    } else if (dest[0] <= pos[0] && dest[1] <= pos[1]) {//终点在起点的左上
+        for (var i = pos[0]; i > dest[0]; i--) {//上下方向
+            pos[0]--;
+            roadArr.push(pos[0]*10+pos[1]);
+        }
+        for (var j = pos[1]; j > dest[1]; j--) {
+            pos[1]--;
+            roadArr.push(pos[0]*10+pos[1]);
+        }
+    }
+    showRoad();
+    index = pos[0] * 10 + pos[1];
+    space[index].appendChild(walker);
+}
+
+function showRoad() {
+    console.log(roadArr);
+    for (var i = 0; i < roadArr.length; i++) {
+        space[roadArr[i]].className = 'road';
+    }
 }
