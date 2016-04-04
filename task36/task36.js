@@ -13,7 +13,7 @@
  * TRA指令有没有对墙进行判断，已解决
  * bug3:
  * 小方块的寻路算法还没实现，现在会穿墙
- * 
+ *
  *
  寻路算法思路：
  1 棋盘中点到点间的最短路径范围，是个矩形
@@ -435,16 +435,15 @@ function hasWall() {
     /*随机生成墙*/
     var wallNo = Math.floor(Math.random() * 100);
     console.log(wallNo);//看生成的随机数是什么
-    console.log(myWall.length, myWall);//数组
     // if (myWall.length < 100) {
     for (var i = 0; i < myWall.length; i++) {
         if (wallNo == myWall[i] || wallNo == (pos[0] * 10 + pos[1])) {
-            console.log('flag', wallNo, myWall[i]);
             //hasWall();
         }
     }
     myWall.push(wallNo);
-    space[wallNo].style.backgroundColor = "#ccc";
+    console.log(myWall.length, myWall);//数组
+    space[wallNo].className="wall";
     // }else{
     //    console.log('→_→都这样了你还想刷哪。。。');
     //}
@@ -539,8 +538,7 @@ function randomColor() {
 function path(dest) {
     space[index].innerHTML = "";
     console.log('起点：', pos, '终点：', dest);
-    /*先考虑终点在起点的右下方，即x2>x1,y2>y1*/
-    if (dest[0] >= pos[0] && dest[1] >= pos[1]) {
+    if (dest[0] >= pos[0] && dest[1] >= pos[1]) {/*先考虑终点在起点的右下方，即x2>x1,y2>y1*/
         for (var i = pos[0]; i < dest[0]; i++) {//上下方向
             pos[0]++;
             roadArr.push(pos[0]*10+pos[1]);
