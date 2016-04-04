@@ -38,6 +38,7 @@ var roadArr = [];
 /*初始化位置*/
 space[0].innerHTML = "";
 space[index].appendChild(walker);
+showNumber();
 /**/
 doer.onclick = function () {
     getWall()
@@ -119,7 +120,9 @@ doer.onclick = function () {
                     pos[0] = turnNum(pos[0]);
                     pos[1] = turnNum(pos[1]);
                     index = pos[0] * 10 + pos[1];
+                    space[index].innerHTML="";
                     space[index].appendChild(walker);
+                    showNumber();
                     break;
                 /*改变脑洞方向*/
                 case "TUN LEF":
@@ -185,7 +188,7 @@ doer.onclick = function () {
                 /*像某个方向前进一步，不改变脑洞方向*/
                 case "TRA LEF":
                     if (!isWall(pos[0], pos[1] - num, 4, num)) {
-                        if (pos[1] > num) {//在棋盘内
+                        if (pos[1] >= num) {//在棋盘内
                             space[index].innerHTML = "";
                             for (var i = 0; i < num; i++) {
                                 pos[1]--;
@@ -193,7 +196,9 @@ doer.onclick = function () {
                             pos[0] = turnNum(pos[0]);
                             pos[1] = turnNum(pos[1]);
                             index = pos[0] * 10 + pos[1];
+                            space[index].innerHTML="";
                             space[index].appendChild(walker);
+                            showNumber();
                         } else {
                             alert('NO LEFT!');
                         }
@@ -203,7 +208,7 @@ doer.onclick = function () {
                     break;
                 case "TRA TOP":
                     if (!isWall(pos[0] - num, pos[1], 1, num)) {
-                        if (pos[0] > num) {//在棋盘内
+                        if (pos[0] >= num) {//在棋盘内
                             space[index].innerHTML = "";
                             for (var j = 0; j < num; j++) {
                                 pos[0]--;
@@ -211,7 +216,9 @@ doer.onclick = function () {
                             pos[0] = turnNum(pos[0]);
                             pos[1] = turnNum(pos[1]);
                             index = pos[0] * 10 + pos[1];
+                            space[index].innerHTML="";
                             space[index].appendChild(walker);
+                            showNumber();
                         } else {
                             alert('NOT UP');
                         }
@@ -229,7 +236,9 @@ doer.onclick = function () {
                             pos[0] = turnNum(pos[0]);
                             pos[1] = turnNum(pos[1]);
                             index = pos[0] * 10 + pos[1];
+                            space[index].innerHTML="";
                             space[index].appendChild(walker);
+                            showNumber();
                         } else {
                             alert('NOT RIGHT');
                         }
@@ -247,7 +256,9 @@ doer.onclick = function () {
                             pos[0] = turnNum(pos[0]);
                             pos[1] = turnNum(pos[1]);
                             index = pos[0] * 10 + pos[1];
+                            space[index].innerHTML="";
                             space[index].appendChild(walker);
+                            showNumber();
                         } else {
                             alert('NOT DOWN');
                         }
@@ -443,7 +454,7 @@ function hasWall() {
     }
     myWall.push(wallNo);
     console.log(myWall.length, myWall);//数组
-    space[wallNo].className="wall";
+    space[wallNo].className = "wall";
     // }else{
     //    console.log('→_→都这样了你还想刷哪。。。');
     //}
@@ -536,53 +547,63 @@ function randomColor() {
 /*起点，[x1,y1]终点，[x2,y2]，
  */
 function path(dest) {
+    roadArr = [];
     space[index].innerHTML = "";
     console.log('起点：', pos, '终点：', dest);
     if (dest[0] >= pos[0] && dest[1] >= pos[1]) {/*先考虑终点在起点的右下方，即x2>x1,y2>y1*/
         for (var i = pos[0]; i < dest[0]; i++) {//上下方向
             pos[0]++;
-            roadArr.push(pos[0]*10+pos[1]);
+            roadArr.push(pos[0] * 10 + pos[1]);
         }
         for (var j = pos[1]; j < dest[1]; j++) {
             pos[1]++;
-            roadArr.push(pos[0]*10+pos[1]);
+            roadArr.push(pos[0] * 10 + pos[1]);
         }
     } else if (dest[0] <= pos[0] && dest[1] >= pos[1]) {//终点在起点的右上
         for (var i = pos[0]; i > dest[0]; i--) {//上下方向
             pos[0]--;
-            roadArr.push(pos[0]*10+pos[1]);
+            roadArr.push(pos[0] * 10 + pos[1]);
         }
         for (var j = pos[1]; j < dest[1]; j++) {
             pos[1]++;
-            roadArr.push(pos[0]*10+pos[1]);
+            roadArr.push(pos[0] * 10 + pos[1]);
         }
     } else if (dest[0] >= pos[0] && dest[1] <= pos[1]) {//终点在起点的左下方
         for (var i = pos[0]; i < dest[0]; i++) {//上下方向
             pos[0]++;
-            roadArr.push(pos[0]*10+pos[1]);
+            roadArr.push(pos[0] * 10 + pos[1]);
         }
         for (var j = pos[1]; j > dest[1]; j--) {
             pos[1]--;
-            roadArr.push(pos[0]*10+pos[1]);
+            roadArr.push(pos[0] * 10 + pos[1]);
         }
     } else if (dest[0] <= pos[0] && dest[1] <= pos[1]) {//终点在起点的左上
         for (var i = pos[0]; i > dest[0]; i--) {//上下方向
             pos[0]--;
-            roadArr.push(pos[0]*10+pos[1]);
+            roadArr.push(pos[0] * 10 + pos[1]);
         }
         for (var j = pos[1]; j > dest[1]; j--) {
             pos[1]--;
-            roadArr.push(pos[0]*10+pos[1]);
+            roadArr.push(pos[0] * 10 + pos[1]);
         }
     }
     showRoad();
-    index = pos[0] * 10 + pos[1];
+    index = dest[0] * 10 + dest[1];
+    space[index].innerHTML="";
     space[index].appendChild(walker);
+    showNumber();
 }
 
 function showRoad() {
     console.log(roadArr);
     for (var i = 0; i < roadArr.length; i++) {
         space[roadArr[i]].className = 'road';
+    }
+}
+function showNumber() {
+    for (var i = 0; i < space.length; i++) {
+        if (!space[i].innerHTML) {
+            space[i].innerText = i;
+        }
     }
 }
