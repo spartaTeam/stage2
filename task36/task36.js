@@ -6,10 +6,12 @@
  新增一个按钮，可以在空间内随机生成一些墙
  增加一个指令：MOV TO x, y，会使得方块从当前位置移动到坐标为x，y的地方，移动过程中不能进入墙所在的地方，寻路算法请自行选择并实现，不做具体要求 * */
 /*
-* bug:
-*TUN RIG/BAC+GO多步的时候会报错：task36.js:96 Uncaught TypeError: Cannot read property 'appendChild' of undefined
-* 原因，参数num的格式是字符串，要转换成数值
-* */
+ * bug:
+ *TUN RIG/BAC+GO多步的时候会报错：task36.js:96 Uncaught TypeError: Cannot read property 'appendChild' of undefined
+ * 原因，参数num的格式是字符串，要转换成数值
+ * BUG:
+ * TRA指令有没有对墙进行判断，未解决
+ * */
 
 var walker = document.getElementById("walker");//获取方块
 var header = document.getElementById("header");//获取头
@@ -18,6 +20,8 @@ var pos = [4, 5];//用数组存储小方块当前的位置,45就是4*10+5，初�
 var index = pos[0] * 10 + pos[1];
 var director = document.getElementById("director");//获取输入指令的元素
 var doer = document.getElementById("doer");//获取按钮点击事件
+var refresh = document.getElementById("refresh");//获取刷新点击
+var randomWall = document.getElementById("randomWall");//获取生成随机墙按钮
 var headTo = 1;//头部初始值为1，向上，顺时针——2向右，3向下，4向左
 var wall = [];//墙
 /*初始化位置*/
@@ -37,10 +41,9 @@ doer.onclick = function () {
             }
             if (lineArr[i].match(/\d/)) {
                 num = lineArr[i].match(/\d/)[0];//parseInt(lineArr[i])/*?parseInt(lineArr[i]):0*/;
-                num=parseInt(num);
+                num = parseInt(num);
             }
-            console.log(dir, num);
-            console.log(index);
+            console.log('输入的指令是：', dir, num);
             switch (dir) {
                 /*前进*/
                 case "GO":
@@ -164,59 +167,75 @@ doer.onclick = function () {
                     break;
                 /*像某个方向前进一步，不改变脑洞方向*/
                 case "TRA LEF":
-                    if (pos[1] > num) {//在棋盘内
-                        space[index].innerHTML = "";
-                        for (var i = 0; i < num; i++) {
-                            pos[1]--;
+                    if (!isWall(pos[0] , pos[1]- num, 4, num)) {
+                        if (pos[1] > num) {//在棋盘内
+                            space[index].innerHTML = "";
+                            for (var i = 0; i < num; i++) {
+                                pos[1]--;
+                            }
+                            pos[0] = turnNum(pos[0]);
+                            pos[1] = turnNum(pos[1]);
+                            index = pos[0] * 10 + pos[1];
+                            space[index].appendChild(walker);
+                        } else {
+                            alert('NO LEFT!');
                         }
-                        pos[0] = turnNum(pos[0]);
-                        pos[1] = turnNum(pos[1]);
-                        index = pos[0] * 10 + pos[1];
-                        space[index].appendChild(walker);
-                    } else {
-                        alert('NO LEFT!');
+                    }else{
+                        console.log('你被墙了');
                     }
                     break;
                 case "TRA TOP":
-                    if (pos[0] > num) {//在棋盘内
-                        space[index].innerHTML = "";
-                        for (var j = 0; j < num; j++) {
-                            pos[0]--;
+                    if (!isWall(pos[0] - num, pos[1], 1, num)) {
+                        if (pos[0] > num) {//在棋盘内
+                            space[index].innerHTML = "";
+                            for (var j = 0; j < num; j++) {
+                                pos[0]--;
+                            }
+                            pos[0] = turnNum(pos[0]);
+                            pos[1] = turnNum(pos[1]);
+                            index = pos[0] * 10 + pos[1];
+                            space[index].appendChild(walker);
+                        } else {
+                            alert('NOT UP');
                         }
-                        pos[0] = turnNum(pos[0]);
-                        pos[1] = turnNum(pos[1]);
-                        index = pos[0] * 10 + pos[1];
-                        space[index].appendChild(walker);
-                    } else {
-                        alert('NOT UP');
+                    }else{
+                        console.log('你被墙了');
                     }
                     break;
                 case "TRA RIG":
-                    if (pos[1] < 10 - num) {//在棋盘内
-                        space[index].innerHTML = "";
-                        for (var j = 0; j < num; j++) {
-                            pos[1]++;
+                    if (!isWall(pos[0], pos[1] + num, 2, num)) {
+                        if (pos[1] < 10 - num) {//在棋盘内
+                            space[index].innerHTML = "";
+                            for (var j = 0; j < num; j++) {
+                                pos[1]++;
+                            }
+                            pos[0] = turnNum(pos[0]);
+                            pos[1] = turnNum(pos[1]);
+                            index = pos[0] * 10 + pos[1];
+                            space[index].appendChild(walker);
+                        } else {
+                            alert('NOT RIGHT');
                         }
-                        pos[0] = turnNum(pos[0]);
-                        pos[1] = turnNum(pos[1]);
-                        index = pos[0] * 10 + pos[1];
-                        space[index].appendChild(walker);
-                    } else {
-                        alert('NOT RIGHT');
+                    }else{
+                        console.log('你被墙了');
                     }
                     break;
                 case "TRA BOT":
-                    if (pos[0] < 10 - num) {//在棋盘内
-                        space[index].innerHTML = "";
-                        for (var j = 0; j < num; j++) {
-                            pos[0]++;
+                    if (!isWall(pos[0] + num, pos[1], 3, num)) {
+                        if (pos[0] < 10 - num) {//在棋盘内
+                            space[index].innerHTML = "";
+                            for (var j = 0; j < num; j++) {
+                                pos[0]++;
+                            }
+                            pos[0] = turnNum(pos[0]);
+                            pos[1] = turnNum(pos[1]);
+                            index = pos[0] * 10 + pos[1];
+                            space[index].appendChild(walker);
+                        } else {
+                            alert('NOT DOWN');
                         }
-                        pos[0] = turnNum(pos[0]);
-                        pos[1] = turnNum(pos[1]);
-                        index = pos[0] * 10 + pos[1];
-                        space[index].appendChild(walker);
-                    } else {
-                        alert('NOT DOWN');
+                    }else{
+                        console.log('你被墙了');
                     }
                     break;
                 /*改变脑洞方向同时前进一步*/
@@ -273,6 +292,106 @@ doer.onclick = function () {
                         console.log('你被墙了');
                     }
                     break;
+                /*打墙，判断出下一步位置，再判断是否有墙，如果没有墙，就打墙，如果有墙，就打错*/
+                case "BUILD":
+                    switch (headTo) {
+                        case 1://头部向上
+                            if (!isWall(pos[0] - 1, pos[1], 1, 1)) {
+                                if (pos[0] > 0) {
+                                    space[(pos[0] - 1) * 10 + pos[1]].className = "wall";
+                                } else {
+                                    alert('OUT!');
+                                }
+                            } else {
+                                console.log('这里已经有墙了');
+                            }
+                            break;
+                        case 2://头部向右
+                            if (!isWall(pos[0], pos[1] + 1, 2, 1)) {
+                                if (pos[1] < 9) {
+                                    space[pos[0] * 10 + pos[1] + 1].className = "wall";
+                                } else {
+                                    alert('OUT!');
+                                }
+                            } else {
+                                console.log('这里已经有墙了');
+                            }
+                            break;
+                        case 3:
+                            if (!isWall(pos[0] + 1, pos[1], 3, 1)) {
+                                if (pos[0] < 9) {
+                                    space[(pos[0] + 1) * 10 + pos[1]].className = "wall";
+                                } else {
+                                    alert('OUT!');
+                                }
+                            } else {
+                                console.log('这里已经有墙了');
+                            }
+                            break;
+                        case 4:
+                            if (!isWall(pos[0], pos[1] - 1, 4, 1)) {
+                                if (pos[1] > 0) {
+                                    space[pos[0] * 10 + pos[1] - 1].className = "wall";
+                                } else {
+                                    alert('OUT!');
+                                }
+                            } else {
+                                console.log('这里已经有墙了');
+                            }
+                            break;
+                    }
+                    break;
+                case "BRU color":
+                    var r = randomColor();
+                    var g = randomColor();
+                    var b = randomColor();
+                    switch (headTo) {
+                        case 1://头部向上
+                            if (isWall(pos[0] - 1, pos[1], 1, 1)) {
+                                if (pos[0] > 0) {
+                                    space[(pos[0] - 1) * 10 + pos[1]].style = "background-color:rgb(" + r + "," + g + "," + b + ")";
+                                } else {
+                                    alert('OUT!');
+                                }
+                            } else {
+                                console.log('这里没墙刷毛线啊');
+                            }
+                            break;
+                        case 2://头部向右
+                            if (isWall(pos[0], pos[1] + 1, 2, 1)) {
+                                if (pos[1] < 9) {
+                                    space[pos[0] * 10 + pos[1] + 1].style = "background-color:rgb(" + r + "," + g + "," + b + ")";
+                                } else {
+                                    alert('OUT!');
+                                }
+                            } else {
+                                console.log('这里没墙刷毛线啊');
+                            }
+                            break;
+                        case 3:
+                            if (isWall(pos[0] + 1, pos[1], 3, 1)) {
+                                if (pos[0] < 9) {
+                                    space[(pos[0] + 1) * 10 + pos[1]].style = "background-color:rgb(" + r + "," + g + "," + b + ")";
+                                } else {
+                                    alert('OUT!');
+                                }
+                            } else {
+                                console.log('这里没墙刷毛线啊');
+                            }
+                            break;
+                        case 4:
+                            if (isWall(pos[0], pos[1] - 1, 4, 1)) {
+                                if (pos[1] > 0) {
+                                    space[pos[0] * 10 + pos[1] - 1].style = "background-color:rgb(" + r + "," + g + "," + b + ")";
+                                } else {
+                                    alert('OUT!');
+                                }
+                            } else {
+                                console.log('这里没墙刷毛线啊');
+                            }
+                            break;
+                    }
+                    break;
                 default :
                     console.log('不合法指令：', lineArr[i]);
             }
@@ -282,8 +401,36 @@ doer.onclick = function () {
     }
 }
 
+/*刷新输入框*/
+refresh.onclick = function () {
+    director.value = "";
+}
+
+randomWall.onclick = function () {
+    hasWall();
+}
+
+function hasWall() {
+    /*随机生成墙*/
+    var wallNo = Math.floor(Math.random() * 100);
+    console.log(wallNo);//看生成的随机数是什么
+    console.log(myWall.length,myWall);//数组
+   // if (myWall.length < 100) {
+        for (var i = 0; i < myWall.length; i++) {
+            if (wallNo == myWall[i] || wallNo==(pos[0]*10+pos[1])) {
+                console.log('flag',wallNo,myWall[i]);
+                //hasWall();
+            }
+        }
+        myWall.push(wallNo);
+        space[wallNo].style.backgroundColor="#ccc";
+   // }else{
+    //    console.log('→_→都这样了你还想刷哪。。。');
+    //}
+}
+
 function turnNum(val) {//当pos值为9+1或0-1，进行处理
-    if (val >=10) {
+    if (val >= 10) {
         return 0;
     } else if (val <= -1) {
         return 9;
@@ -294,11 +441,15 @@ function turnNum(val) {//当pos值为9+1或0-1，进行处理
 
 /*设定的墙*/
 var myWall = [
-    5,	6,	7,	8,	9,	15,	19,	25,	29,	35,	55,	65,	70,	75,	80,	85,	90,	91,	92,	93,	94,	95
+    5, 6, 7, 8, 9, 15, 19, 25, 29, 35, 55, 65, 70, 75, 80, 85, 90, 91, 92, 93, 94, 95
 ];
-    for (var i= 0; i < myWall.length; i++){
-            space[myWall[i]].className="wall";
-        }
+
+function printWall() {
+    for (var i = 0; i < myWall.length; i++) {
+        space[myWall[i]].className = "wall";
+    }
+}
+printWall();
 /*返回所有墙的位置*/
 function getWall() {
     var wallArr = [];
@@ -312,45 +463,41 @@ function getWall() {
 /*如果小方块下一步的位置是墙或者越墙TRUE，则不能前进*/
 function isWall(x, y, headTo, num) {//x,y是小方块即将到达的位置
     var wallArr = getWall();
-    console.log('wallArr', wallArr);
     var flag = false;
     for (var i = 0; i < wallArr.length; i++) {//把小方块的位置和墙中的位置一一作对比
         if (headTo === 1) {//头向上
             if (y === wallArr[i][1] && wallArr[i][0] < x + parseInt(num)) {//y轴方向一致，比较上方向的墙
                 if (x <= wallArr[i][0]) {//小方块要到达的位置比墙的位置还要上面,超出
                     flag = true;
-                    console.log("h1:", x);
-                    console.log("h1:", wallArr[i][0]);
                 }
             }
         } else if (headTo === 2) {//头向右
             if (x === wallArr[i][0] && wallArr[i][1] > y - parseInt(num)) {//x轴方向一致，比较右方向的墙
                 if (y >= wallArr[i][1]) {
                     flag = true;
-                    console.log("h2:", y);
-                    console.log("h2:", wallArr[i][1]);
                 }
             }
         } else if (headTo === 3) {//头向下
             if (y === wallArr[i][1] && wallArr[i][0] > x - parseInt(num)) {//y轴方向一致，比较下方向的墙
                 if (x >= wallArr[i][0]) {
                     flag = true;
-                    console.log("h3:", x);
-                    console.log("h3:", wallArr[i][0]);
                 }
             }
         } else if (headTo === 4) {//头向左
             if (x === wallArr[i][0] && wallArr[i][1] < y + parseInt(num)) {//x轴方向一致，比较左方向的墙
                 if (y <= wallArr[i][1]) {
                     flag = true;
-                    console.log("h4:", y);
-                    console.log("h4:", wallArr[i][1]);
                 }
             }
         } else {
             flag = false;
         }
     }
-    console.log('flag', flag);
     return flag;
+}
+
+/*随机颜色*/
+function randomColor() {
+    var rgb = Math.floor(Math.random() * 1000) % 256;
+    return rgb;
 }
