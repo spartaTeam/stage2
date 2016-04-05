@@ -435,7 +435,7 @@ doer.onclick = function () {
 
 /*刷新输入框*/
 refresh.onclick = function () {
-    director.value = "";
+    location.reload();
 }
 
 randomWall.onclick = function () {
