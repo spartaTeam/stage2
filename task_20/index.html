@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IFE JavaScript Task 01</title>
+	<style type="text/css">
+		body{
+			font-family: '微软雅黑';
+		}
+		ul{
+			/*border: 1px solid black;*/
+			font-size: 16px;
+			color: white;
+			padding-left: 0px;
+		}
+		ul li{
+			background-color: #59c1fc;
+			list-style: none;
+			float: left;
+			display: block;
+			margin-right: 10px;
+			/*width:35px;*/
+			height: 35px;
+			line-height: 35px;
+			text-align: center;
+			margin-top: 10px;
+		}
+		input[type = 'button']{
+			border: 1px solid grey;
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			background-color: white;
+		}
+		.select{
+			/*background-color: yellow;*/
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<!-- <input type="text" id="txt"></input> -->
+		<textarea id="txt"></textarea>
+		<input type="button" value="插入" id="inputBtn">
+		<input type="text" id="search_str" placeholder="请输入要查询的字符串">
+		<input type="button" value="查询" id="searchBtn">
+	</div>	
+	<ul id="ul-list">
+	</ul>
+	<script type="text/javascript" src="js/task_20.js"></script>
+</body>
+</html>
